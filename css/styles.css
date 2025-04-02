@@ -1,0 +1,453 @@
+/* Estilos generales */
+:root {
+    --color-primary: #5a6cb3;
+    --color-secondary: #6075b0;
+    --color-light: #f8f8f8;
+    --color-dark: #333;
+    --color-white: #fff;
+    --color-border: #ddd;
+    --shadow-sm: 0 2px 5px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 8px rgba(0,0,0,0.12);
+    --border-radius: 8px;
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lato', 'Arial', sans-serif;
+    line-height: 1.6;
+    color: var(--color-dark);
+    background-color: var(--color-light);
+}
+
+/* Header y navegación */
+header {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    text-align: center;
+    padding: 2rem 0;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    background-image: linear-gradient(to bottom, rgba(91, 44, 111, 0.9), rgba(91, 44, 111, 0.7)), url('../images/banner.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+nav {
+    background-color: var(--color-secondary);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+nav ul li {
+    margin: 0 0.5rem;
+}
+
+nav ul li a {
+    color: var(--color-white);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: var(--transition);
+    display: block;
+}
+
+nav ul li a:hover {
+    background-color: var(--color-primary);
+    transform: translateY(-2px);
+}
+
+/* Contenido principal */
+main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+section {
+    background-color: var(--color-white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    padding: 2.5rem;
+    margin-bottom: 2.5rem;
+    transition: var(--transition);
+}
+
+section:hover {
+    box-shadow: var(--shadow-md);
+}
+
+h2 {
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-secondary);
+    display: inline-block;
+}
+
+h3 {
+    color: var(--color-primary);
+    margin: 1.5rem 0 1rem;
+}
+
+/* Secciones específicas */
+/* Inicio */
+#inicio {
+    position: relative;
+    overflow: hidden;
+}
+
+.imagen-principal {
+    height: 300px;
+    background-color: #e0e0e0;
+    margin-top: 1.5rem;
+    border-radius: var(--border-radius);
+    background-image: url('../images/banner.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+/* Sacramentos */
+.sacramento-card {
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: 1.8rem;
+    margin-bottom: 1.5rem;
+    transition: var(--transition);
+    background-color: rgba(91, 44, 111, 0.03);
+}
+
+.sacramento-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-sm);
+}
+
+.sacramento-card h3 {
+    color: var(--color-secondary);
+    margin-top: 0;
+}
+
+.sacramento-card ul {
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+/* Horarios */
+.horario-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    box-shadow: var(--shadow-sm);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.horario-table th, .horario-table td {
+    border: 1px solid var(--color-border);
+    padding: 1rem;
+    text-align: left;
+}
+
+.horario-table th {
+    background-color: rgba(91, 44, 111, 0.1);
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
+.horario-table tr:nth-child(even) {
+    background-color: rgba(245, 245, 245, 0.7);
+}
+
+.horario-table tr:hover {
+    background-color: rgba(91, 44, 111, 0.05);
+}
+
+/* Actividades */
+.actividad-card {
+    display: flex;
+    margin-bottom: 2rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.actividad-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.actividad-img {
+    min-width: 200px;
+    background-color: #e0e0e0;
+    background-size: cover;
+    background-position: center;
+}
+
+.actividad-content {
+    padding: 1.5rem;
+    flex: 1;
+}
+
+.actividad-content h3 {
+    margin-top: 0;
+    color: var(--color-secondary);
+}
+
+.actividad-content ul {
+    padding-left: 1.5rem;
+    margin-top: 0.8rem;
+}
+
+/* Galería */
+.upload-section {
+    background-color: rgba(91, 44, 111, 0.05);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+}
+
+.upload-section form div {
+    margin-bottom: 1rem;
+}
+
+.upload-section label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.upload-section input, .upload-section textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+}
+
+.upload-section button {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.upload-section button:hover {
+    background-color: var(--color-primary);
+}
+
+.note {
+    font-size: 0.9rem;
+    font-style: italic;
+    margin-top: 0.5rem;
+}
+
+.galeria {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.galeria-item {
+    height: 200px;
+    background-color: #e0e0e0;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: var(--transition);
+    cursor: pointer;
+    position: relative;
+}
+
+.galeria-item:hover {
+    transform: scale(1.03);
+}
+
+/* Contacto */
+.contacto-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.contacto-card {
+    flex: 1;
+    min-width: 250px;
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    background-color: rgba(91, 44, 111, 0.03);
+    transition: var(--transition);
+}
+
+.contacto-card:hover {
+    box-shadow: var(--shadow-sm);
+}
+
+.contacto-card h3 {
+    margin-top: 0;
+    color: var(--color-secondary);
+}
+
+.formulario-contacto {
+    background-color: rgba(91, 44, 111, 0.05);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+}
+
+.formulario-contacto form div {
+    margin-bottom: 1rem;
+}
+
+.formulario-contacto label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.formulario-contacto input, .formulario-contacto textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+}
+
+.formulario-contacto button {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.formulario-contacto button:hover {
+    background-color: var(--color-primary);
+}
+
+/* Hojas Dominicales */
+.documentos-list {
+    list-style-type: none;
+}
+
+.documentos-list li {
+    padding: 1rem;
+    border-bottom: 1px solid var(--color-border);
+    transition: var(--transition);
+}
+
+.documentos-list li:hover {
+    background-color: rgba(91, 44, 111, 0.05);
+}
+
+.documentos-list li a {
+    color: var(--color-primary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.documentos-list li a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    background-color: var(--color-dark);
+    color: var(--color-white);
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 3rem;
+}
+
+footer a {
+    color: var(--color-white);
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    nav ul li {
+        margin: 0.5rem 0;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .actividad-card {
+        flex-direction: column;
+    }
+    
+    .actividad-img {
+        width: 100%;
+        height: 200px;
+    }
+    
+    .horario-table {
+        font-size: 0.9rem;
+    }
+    
+    .horario-table th, .horario-table td {
+        padding: 0.7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding: 0 1rem;
+    }
+    
+    section {
+        padding: 1.5rem;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .galeria {
+        grid-template-columns: 1fr;
+    }
+}
