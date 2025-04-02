@@ -1,116 +1,179 @@
-// Efecto de desplazamiento suave para la navegación
-document.querySelectorAll('nav a').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
+// Esperar a que el DOM esté completamente cargado
+document.addEventListener('DOMContentLoaded', function() {
+    // Preloader
+    setTimeout(function() {
+        const preloader = document.querySelector('.preloader');
+        if (preloader) {
+            preloader.style.opacity = '0';
+            setTimeout(function() {
+                preloader.style.display = 'none';
+            }, 500);
+        }
+    }, 500);
+
+    // Menú móvil
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.querySelector('nav ul');
+    
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+        });
+    }
+
+    // Cerrar el menú al hacer clic en un enlace
+    const navLinks = document.querySelectorAll('nav ul li a');
+    navLinks.forEach(function(link) {
+        link.addEventListener('click', function() {
+            if (navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+            }
+        });
+    });
+
+    // Botón para ir arriba
+    const btnTop = document.createElement('div');
+    btnTop.className = 'btn-top';
+    btnTop.innerHTML = '<i class="fas fa-chevron-up"></i>';
+    document.body.appendChild(btnTop);
+
+    btnTop.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
             behavior: 'smooth'
         });
     });
-});
 
-// Validación del formulario de carga de fotos
-document.getElementById('photo-upload-form').addEventListener('submit', function(e) {
-    e.preventDefault(); // Evita el envío del formulario por defecto
-
-    // Obtener los valores de los campos
-    const photo = document.getElementById('photo').value;
-    const description = document.getElementById('description').value;
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-
-    // Validaciones simples
-    if (!photo) {
-        alert('Por favor, selecciona una imagen.');
-        return;
-    }
-    if (!description) {
-        alert('Por favor, añade una descripción.');
-        return;
-    }
-    if (!name) {
-        alert('Por favor, ingresa tu nombre.');
-        return;
-    }
-    if (!email) {
-        alert('Por favor, ingresa tu correo electrónico.');
-        return;
-    }
-
-    // Aquí puedes agregar la lógica para enviar el formulario a tu servidor
-    alert('Foto enviada con éxito. ¡Gracias por compartir!');
-
-    // Reiniciar el formulario
-    this.reset();
-});
-
-// Validación del formulario de carga de documentos
-document.getElementById('documento-upload-form').addEventListener('submit', function(e) {
-    e.preventDefault(); // Evita el envío del formulario por defecto
-
-    // Obtener los valores de los campos
-    const titulo = document.getElementById('documento-titulo').value;
-    const fecha = document.getElementById('documento-fecha').value;
-    const descripcion = document.getElementById('documento-descripcion').value;
-    const archivo = document.getElementById('documento-archivo').value;
-    const clave = document.getElementById('documento-clave').value;
-
-    // Validaciones simples
-    if (!titulo) {
-        alert('Por favor, ingresa el título del documento.');
-        return;
-    }
-    if (!fecha) {
-        alert('Por favor, selecciona una fecha.');
-        return;
-    }
-    if (!descripcion) {
-        alert('Por favor, añade una descripción.');
-        return;
-    }
-    if (!archivo) {
-        alert('Por favor, selecciona un archivo PDF.');
-        return;
-    }
-    if (!clave) {
-        alert('Por favor, ingresa la clave de administrador.');
-        return;
-    }
-
-    // Aquí defines la clave correcta
-    const claveCorrecta = '123456'; // Cambia esto por la clave real
-
-    // Validar la clave
-    if (clave !== claveCorrecta) {
-        alert('Clave incorrecta. Inténtalo de nuevo.');
-        return;
-    }
-
-    // Si todo es correcto, aquí puedes agregar la lógica para enviar el formulario a tu servidor
-    alert('Documento subido con éxito. ¡Gracias!');
-
-    // Reiniciar el formulario
-    this.reset();
-});
-
-// Función para mostrar las imágenes en la galería
-function loadGalleryImages() {
-    const gallery = document.querySelector('.galeria');
-    const images = [
-        'images/galeria/foto1.jpg',
-        'images/galeria/foto2.jpg',
-        'images/galeria/foto3.jpg',
-        'images/galeria/foto4.jpg',
-        'images/galeria/foto5.jpg',
-        'images/galeria/foto6.jpg'
-    ];
-
-    images.forEach(image => {
-        const item = document.createElement('div');
-        item.classList.add('galeria-item');
-        item.style.backgroundImage = `url('${image}')`;
-        gallery.appendChild(item);
+    window.addEventListener('scroll', function() {
+        if (window.pageYOffset > 300) {
+            btnTop.classList.add('show');
+        } else {
+            btnTop.classList.remove('show');
+        }
     });
-}
 
-// Cargar las imágenes de la galería al cargar la página
-document.addEventListener('DOMContentLoaded', loadGalleryImages);
+    // Smooth scroll para los enlaces de navegación
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                // Obtener la posición del elemento
+                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                const navHeight = document.querySelector('nav').offsetHeight;
+                
+                // Desplazarse a la posición menos la altura del menú
+                window.scrollTo({
+                    top: targetPosition - navHeight,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // Filtrar documentos
+    const btnFiltrar = document.getElementById('btn-filtrar');
+    if (btnFiltrar) {
+        btnFiltrar.addEventListener('click', function() {
+            const anioSeleccionado = document.getElementById('filtro-anio').value;
+            
+            // Seleccionar todos los documentos
+            const documentos = document.querySelectorAll('.documento-card');
+            
+            documentos.forEach(function(doc) {
+                const docAnio = doc.getAttribute('data-anio');
+                
+                // Mostrar u ocultar basado en el filtro
+                if (anioSeleccionado === 'todos' || docAnio === anioSeleccionado) {
+                    doc.style.display = 'flex';
+                } else {
+                    doc.style.display = 'none';
+                }
+            });
+        });
+    }
+
+    // Añadir el preloader al HTML si no existe
+    if (!document.querySelector('.preloader')) {
+        const preloaderDiv = document.createElement('div');
+        preloaderDiv.className = 'preloader';
+        preloaderDiv.innerHTML = '<div class="loader"></div>';
+        document.body.prepend(preloaderDiv);
+    }
+
+    // Añadir menú toggle al HTML si no existe
+    if (!document.querySelector('.menu-toggle')) {
+        const menuToggleDiv = document.createElement('div');
+        menuToggleDiv.className = 'menu-toggle';
+        menuToggleDiv.innerHTML = '<i class="fas fa-bars"></i>';
+        document.querySelector('nav').prepend(menuToggleDiv);
+    }
+
+    // Añadir efectos de animación a las secciones
+    const secciones = document.querySelectorAll('section');
+    
+    // Función para comprobar si un elemento está en el viewport
+    function isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.bottom >= 0
+        );
+    }
+
+    // Añadir la clase de animación cuando la sección sea visible
+    function animarSecciones() {
+        secciones.forEach(function(seccion) {
+            if (isInViewport(seccion) && !seccion.classList.contains('animado')) {
+                seccion.classList.add('animado');
+            }
+        });
+    }
+
+    // Ejecutar la función al cargar y al hacer scroll
+    window.addEventListener('load', animarSecciones);
+    window.addEventListener('scroll', animarSecciones);
+
+    // Configurar paginación para los documentos
+    const btnAnterior = document.getElementById('btn-anterior');
+    const btnSiguiente = document.getElementById('btn-siguiente');
+    const paginaActual = document.getElementById('pagina-actual');
+    const totalPaginas = document.getElementById('total-paginas');
+
+    // Actualizar estado de botones de paginación
+    function actualizarEstadoPaginacion() {
+        const paginaActualNum = parseInt(paginaActual.textContent);
+        const totalPaginasNum = parseInt(totalPaginas.textContent);
+        
+        btnAnterior.disabled = paginaActualNum === 1;
+        btnSiguiente.disabled = paginaActualNum === totalPaginasNum;
+    }
+
+    // Configurar eventos para los botones de paginación
+    if (btnAnterior && btnSiguiente) {
+        btnAnterior.addEventListener('click', function() {
+            const paginaActualNum = parseInt(paginaActual.textContent);
+            if (paginaActualNum > 1) {
+                paginaActual.textContent = paginaActualNum - 1;
+                actualizarEstadoPaginacion();
+                // Aquí iría la lógica para cargar los documentos de la página anterior
+            }
+        });
+
+        btnSiguiente.addEventListener('click', function() {
+            const paginaActualNum = parseInt(paginaActual.textContent);
+            const totalPaginasNum = parseInt(totalPaginas.textContent);
+            if (paginaActualNum < totalPaginasNum) {
+                paginaActual.textContent = paginaActualNum + 1;
+                actualizarEstadoPaginacion();
+                // Aquí iría la lógica para cargar los documentos de la página siguiente
+            }
+        });
+    }
+
+    // Inicializar el estado de los botones
+    actualizarEstadoPaginacion();
+});
